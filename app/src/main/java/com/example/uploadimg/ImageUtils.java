@@ -113,10 +113,10 @@ public class ImageUtils {
             File sdPath = Environment.getExternalStorageDirectory();
             String savePath = sdPath.getPath() + "/Download/qiniuyun/";
             File saveFile = new File(savePath);
+            try {
 
-            if (!saveFile.exists()) {
+                if (!saveFile.exists()) {
 
-                try {
 
                     int permission = ActivityCompat.checkSelfPermission(activity, "android.permission.WRITE_EXTERNAL_STORAGE");
 
@@ -130,21 +130,20 @@ public class ImageUtils {
 
                     saveFile.mkdirs();
 
-                    os = new FileOutputStream(new File(saveFile, imageKey));
-                    while ((len = is.read(bs)) != -1) {
-                        os.write(bs, 0, len);
-                    }
-
-                    os.close();
-                    is.close();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return false;
                 }
 
-            }
+                os = new FileOutputStream(new File(saveFile, imageKey));
+                while ((len = is.read(bs)) != -1) {
+                    os.write(bs, 0, len);
+                }
 
+                os.close();
+                is.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
 
         return true;

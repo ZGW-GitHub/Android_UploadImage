@@ -20,6 +20,7 @@ import com.qiniu.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import me.rosuh.filepicker.bean.FileItemBeanImpl;
 import me.rosuh.filepicker.config.AbstractFileFilter;
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     new Thread(() -> {
                         Boolean ok = ImageUtils.uploadImage(filePath, null);
                         if (ok) {
-                            showFilePathTextView.setText("");
                             MyUtils.showToast(this, "上传成功");
                         } else {
                             MyUtils.showToast(this, "上传失败,请检查配置或网络");
@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                         new Thread(() -> {
                             Boolean ok = ImageUtils.uploadImage(filePath, newFileName);
                             if (ok) {
-                                showFilePathTextView.setText("");
                                 MyUtils.showToast(this, "上传成功");
                             } else {
                                 MyUtils.showToast(this, "上传失败,请检查配置或网络");
@@ -116,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
+
+                showFilePathTextView.setText("");
 
                 builder.show();
 
@@ -149,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), ImagesActivity.class);
                         intent.putStringArrayListExtra("images", list);
                         startActivity(intent);
+                    } else {
+                        MyUtils.showToast(this, "查询失败,请检查配置或网络");
                     }
                 }).start();
 
