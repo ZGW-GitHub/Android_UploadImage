@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:paddingTop="180dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="AccessKey: " />
+
+            <EditText
+                android:id="@+id/showAccessKey"
+                android:layout_width="300dp"
+                android:layout_height="60dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="SecretKey: " />
+
+            <EditText
+                android:id="@+id/showSecretKey"
+                android:layout_width="300dp"
+                android:layout_height="60dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="域名: " />
+
+            <EditText
+                android:id="@+id/showDomain"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="存储空间: " />
+
+            <EditText
+                android:id="@+id/showBucket"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/updateConfig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
