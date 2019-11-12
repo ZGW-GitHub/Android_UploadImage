@@ -31,12 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private Config config = new Config(this);
 
     private TextView showFilePathTextView;
-    private Button findFileButton;
-    private Button uploadFileButton;
-    private Button gotoConfigButton;
-    private Button getImagesButton;
 
-    private String filePath = "";
+    private volatile String filePath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         showFilePathTextView = findViewById(R.id.ShowFilePath);
-        findFileButton = findViewById(R.id.FindFile);
-        uploadFileButton = findViewById(R.id.UploadFile);
-        gotoConfigButton = findViewById(R.id.GoToConfig);
-        getImagesButton = findViewById(R.id.GetImages);
+        Button findFileButton = findViewById(R.id.FindFile);
+        Button uploadFileButton = findViewById(R.id.UploadFile);
+        Button gotoConfigButton = findViewById(R.id.GoToConfig);
+        Button getImagesButton = findViewById(R.id.GetImages);
 
         int permission = ActivityCompat.checkSelfPermission(this, "android.permission.WRITE_EXTERNAL_STORAGE");
         if (permission != PackageManager.PERMISSION_GRANTED) {
@@ -84,11 +80,15 @@ public class MainActivity extends AppCompatActivity {
                     new Thread(() -> {
                         Boolean ok = ImageUtils.uploadImage(filePath, null);
                         if (ok) {
+                            filePath = null;
                             MyUtils.showToast(this, "上传成功");
                         } else {
+                            filePath = null;
                             MyUtils.showToast(this, "上传失败,请检查配置或网络");
                         }
                     }).start();
+
+                    showFilePathTextView.setText("");
 
                 });
 
@@ -105,17 +105,19 @@ public class MainActivity extends AppCompatActivity {
                         new Thread(() -> {
                             Boolean ok = ImageUtils.uploadImage(filePath, newFileName);
                             if (ok) {
+                                filePath = null;
                                 MyUtils.showToast(this, "上传成功");
                             } else {
+                                filePath = null;
                                 MyUtils.showToast(this, "上传失败,请检查配置或网络");
                             }
                         }).start();
 
+                        showFilePathTextView.setText("");
+
                     }
 
                 });
-
-                showFilePathTextView.setText("");
 
                 builder.show();
 
@@ -191,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                 list.clear();
                 filePath = null;
                 showFilePathTextView.setText("");
-                Toast.makeText(this, "没有选择任何东西", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "没有选择任何图片", Toast.LENGTH_SHORT).show();
             }
 
         }

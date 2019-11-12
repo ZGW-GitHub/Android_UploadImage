@@ -3,6 +3,7 @@ package com.example.uploadimg;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import com.example.uploadimg.util.MyUtils;
 import com.qiniu.common.QiniuException;
@@ -126,9 +129,29 @@ public class ImagesActivity extends Activity {
 
             itemDownLoadButton.setOnClickListener(v -> {
 
+                int permission = ActivityCompat.checkSelfPermission(ImagesActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE");
+
                 if (!MyUtils.getActiveNetworkInfo(ImagesActivity.this)) {
 
                     Toast.makeText(ImagesActivity.this, "请检查网络连接", Toast.LENGTH_SHORT).show();
+
+                } if (permission != PackageManager.PERMISSION_GRANTED) {
+
+                    final int REQUEST_EXTERNAL_STORAGE = 1;
+                    String[] PERMISSIONS_STORAGE = {"android.permission.READ_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"};
+                    ActivityCompat.requestPermissions(ImagesActivity.this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE);
+
+                    new Thread(() -> {
+
+                        Boolean ok = ImageUtils.downloadImage(imagekey, ImagesActivity.this);
+
+                        if (ok) {
+                            MyUtils.showToast(ImagesActivity.this, "下载成功,文件下载至 /Download/qiniuyun 中了");
+                        } else {
+                            MyUtils.showToast(ImagesActivity.this, "下载失败,请检查配置或网络");
+                        }
+
+                    }).start();
 
                 } else {
 

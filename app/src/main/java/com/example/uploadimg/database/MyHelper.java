@@ -20,7 +20,7 @@ public class MyHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("create table `key`(accesskey varchar(50), secretkey varchar(50), bucket varchar(50), domain varchar(50))");
-		db.execSQL("insert into `key`(accesskey, secretkey, bucket, domain) values('mlY9EeELUucBbhlCvF1OGSuSzoD1irQf4KTD3ur1','7WrlxqvRZsodRmOF6wb43aBzRkdBtz7EKVQ-xmFe','imageblogs','images.notuptoyou.site')");
+		db.execSQL("insert into `key`(accesskey, secretkey, bucket, domain) values('mlY9EeELUucBbHlCvF1OGSuSzoD1irQf4KTD3ur1','7WrlxqvRZsodRmOF6wb42aBzRkdBtz7EKVQ-xmFe','imageblogs','images.notuptoyou.site')");
 	}
 
 	@Override
